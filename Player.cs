@@ -1,9 +1,14 @@
+//floats
 public float maxSpeed = 3;
 public float speed = 50f;
 public float jumpPower = 150f;
-private Animator anim;
-public bool grounded;
 
+//Booleans
+public bool grounded;
+public bool canDoubleJump;
+
+//References
+private Animator anim;
 private RigidBody2D rb2d;
 
 void Start()
@@ -25,9 +30,22 @@ anim.SetFloat("Speed", Mathf.Abs(rb2d.velocity.x));
   {
     transform.localScale = new Vector3(1, 1, 1);
   }
-  if(Input.GetButtonDown("Jump") && grounded)
+  if(Input.GetButtonDown("Jump")
   {
-    rb2d.AddForce(Vector2.up * jumpPower);
+     if(grounded)
+     {
+        rb2d.AddForce(Vector2.up * jumpPower);
+        canDoubleJump = true;
+     }
+     else
+     {
+        if (canDoubleJump)
+        {
+           canDoubleJump = false;
+           rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
+           rb2d.AddForce(Vector2.up * jumpPower / 1.75f);
+        }
+     }
   }
 }
 
