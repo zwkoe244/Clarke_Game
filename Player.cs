@@ -15,7 +15,7 @@ anim = gameObject.GetComponent<Animator>();
 void Update()
 {
 anim.SetBool("Grounded",grounded);
-anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
+anim.SetFloat("Speed", Mathf.Abs(rb2d.velocity.x));
    
   if(Input.GetAxis("Horizontal") < -0.1f)
   {
