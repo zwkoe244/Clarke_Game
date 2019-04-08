@@ -25,6 +25,10 @@ anim.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
   {
     transform.localScale = new Vector3(1, 1, 1);
   }
+  if(Input.GetButtonDown("Jump") && grounded)
+  {
+    rb2d.AddForce(Vector2.up * jumpPower);
+  }
 }
 
 void FixedUpdate()
