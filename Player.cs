@@ -33,17 +33,29 @@ anim.SetFloat("Speed", Mathf.Abs(rb2d.velocity.x));
 
 void FixedUpdate()
 {
-float h = Input.GetAxis("Horizontal");
-//Moving the player
-rb2d.AddForce((Vector2.right * speed) * h);
-//Limiting the speed of the player
-if (rb2d.velocity.x > maxSpeed)
-{
-rb2d.velocity = new Vector2(maxSpeed, rb2d.velocity.y);
-}
+   Vector3 easeVelocity = rb2d.velocity;
+   easeVelocity.y = rb2d.velocity.y;
+   easeVelocity.x *= 0.75f;
+   float h = Input.GetAxis("Horizontal");
+   //Fake friction / easing the x speed of our player
+   if (grounded)
+   {
+      rb2d.velocity = easeVelocity;
+   }
+   //Moving the player
+   
+   rb2d.AddForce((Vector2.right * speed) * h);
+   
+   //Limiting the speed of the player
+   
+   if (rb2d.velocity.x > maxSpeed)
+   {
+   rb2d.velocity = new Vector2(maxSpeed, rb2d.velocity.y);
+   }
 
-if(rb2d.velocity.x < -maxSpeed)
-{
-rb2d.velocity = new Vector2(-maxSpeed, rb2d.velocity.y);
-}
+   if(rb2d.velocity.x < -maxSpeed)
+   {
+   rb2d.velocity = new Vector2(-maxSpeed, rb2d.velocity.y);
+   }
+   
 }
