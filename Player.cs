@@ -7,6 +7,10 @@ public float jumpPower = 150f;
 public bool grounded;
 public bool canDoubleJump;
 
+//Stats
+public int curHealth;
+public int maxHealth = 100;
+
 //References
 private Animator anim;
 private RigidBody2D rb2d;
@@ -15,6 +19,9 @@ void Start()
 {
 rb2d = gameObject.GetComponent<RigidBody2D>();
 anim = gameObject.GetComponent<Animator>();
+
+curHealth = maxHealth;   
+   
 }
 
 void Update()
@@ -47,6 +54,17 @@ anim.SetFloat("Speed", Mathf.Abs(rb2d.velocity.x));
         }
      }
   }
+  
+  if(curHealth > maxHealth)
+  {
+     curHealth = maxHealth;
+  }
+     
+  if(curHealth <= 0)
+  {
+     Die();
+  }
+     
 }
 
 void FixedUpdate()
@@ -76,4 +94,10 @@ void FixedUpdate()
    rb2d.velocity = new Vector2(-maxSpeed, rb2d.velocity.y);
    }
    
+}
+     
+void Die()
+{
+//Restart
+Application.LoadLevel(Application.loadedLevel);     
 }
