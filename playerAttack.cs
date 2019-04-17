@@ -9,7 +9,7 @@ private Animator anim;
 
 void Awake()
 {
-anim = gameObject.GetComponet<Animator>();
+anim = gameObject.GetComponent<Animator>();
 attackTrigger.enabled = false;
 }
 
